@@ -1,0 +1,16 @@
+Package: garfiled
+Type: Package
+Title: Read and handle Garmin .tcx files
+Version: 0.0.0.9000
+Author: Julian During
+Description: More about what it does (maybe more than one line)
+License: What license is it under?
+LazyData: TRUE
+Imports:
+    dplyr,
+    purrr,
+    xml2,
+    tibble,
+    magrittr
+RoxygenNote: 5.0.1
+Suggests: testthat
