@@ -13,7 +13,7 @@ read_tcx_directory <- function(home_path) {
   df_erg <- tibble::data_frame(path = dir(path = home_path, full.names = TRUE))
 
   df_erg <- df_erg %>%
-    dplyr::mutate(run_data = purrr::map(path, purrr::possibly(garmin_read_tcx, NULL)),
+    dplyr::mutate(run_data = purrr::map(path, purrr::possibly(read_tcx, NULL)),
       is_null = purrr::map_lgl(run_data, is.null)) %>%
     dplyr::filter(!is_null) %>%
     tidyr::unnest(run_data)
