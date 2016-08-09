@@ -10,13 +10,13 @@
 #'
 #' @examples
 read_tcx_runs_directory <- function(home_path) {
-  df_erg <- data_frame(path = dir(path = home_path, full.names = TRUE))
+  df_erg <- tibble::data_frame(path = dir(path = home_path, full.names = TRUE))
 
   df_erg <- df_erg %>%
-    mutate(run_data = map(path, possibly(read_tcx_run, NULL)),
-      is_null = map_lgl(run_data, is.null)) %>%
-    filter(!is_null) %>%
-    unnest(run_data)
+    dplyr::mutate(run_data = purrr::map(path, purrr::possibly(read_tcx_run, NULL)),
+      is_null = purrr::map_lgl(run_data, is.null)) %>%
+    dplyr::filter(!is_null) %>%
+    tidyr::unnest(run_data)
 }
 
 #' Read a '.tcx' file.
