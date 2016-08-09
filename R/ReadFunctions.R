@@ -16,7 +16,8 @@ read_tcx_directory <- function(home_path) {
     dplyr::mutate(run_data = purrr::map(path, purrr::possibly(read_tcx, NULL)),
       is_null = purrr::map_lgl(run_data, is.null)) %>%
     dplyr::filter(!is_null) %>%
-    tidyr::unnest(run_data)
+    tidyr::unnest(run_data) %>%
+    dplyr::mutate(measurement = as.factor(measurement), type = as.factor(type))
 }
 
 #' Read a '.tcx' file.
