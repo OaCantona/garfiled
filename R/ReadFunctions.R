@@ -17,7 +17,9 @@ read_tcx_directory <- function(home_path) {
       is_null = purrr::map_lgl(run_data, is.null)) %>%
     dplyr::filter(!is_null) %>%
     tidyr::unnest(run_data) %>%
-    dplyr::mutate(measurement = as.factor(measurement), type = as.factor(type))
+    dplyr::mutate(measurement = as.factor(measurement),
+      type = as.factor(type)) %>%
+    dplyr::select(-is_null)
 }
 
 #' Read a '.tcx' file.
@@ -68,6 +70,7 @@ read_tcx <- function(path) {
     tidyr::unite(col = datetime, date, time, remove = FALSE, sep = " ") %>%
     dplyr::mutate(value = as.numeric(value), date = as.Date(date),
                   datetime = as.POSIXct(datetime)) %>%
+    #dplyr::rename(BPM = Value) %>%
     dplyr::select(-time)
 
   return(df_erg)
