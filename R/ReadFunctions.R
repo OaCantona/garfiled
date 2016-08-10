@@ -71,7 +71,6 @@ read_tcx <- function(path) {
     dplyr::mutate(value = as.numeric(value), date = as.Date(date),
       datetime = as.POSIXct(datetime),
       measurement = dplyr::if_else(measurement == "Value", "BPM", measurement)) %>%
-    #dplyr::rename(BPM = Value) %>%
     dplyr::select(-time)
 
   return(df_erg)
