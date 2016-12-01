@@ -10,7 +10,8 @@
 #'
 #' @examples
 read_tcx_directory <- function(home_path) {
-  df_erg <- tibble::data_frame(path = dir(path = home_path, full.names = TRUE))
+  df_erg <- tibble::data_frame(path = dir(path = home_path, full.names = TRUE)) %>%
+    filter(stringr::str_detect(path, ".tcx"))
 
   df_erg <- df_erg %>%
     dplyr::mutate(run_data = purrr::map(path, purrr::possibly(read_tcx, NULL)),
