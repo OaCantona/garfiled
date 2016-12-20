@@ -71,9 +71,7 @@ read_tcx <- function(path) {
     tidyr::unite(col = datetime, date, time, remove = FALSE, sep = " ") %>%
     dplyr::mutate(value = as.numeric(value), date = as.Date(date),
       datetime = as.POSIXct(datetime),
-      measurement = dplyr::if_else(measurement == "Value", "BPM", measurement)) %>%
-    dplyr::select(-time)
-
+      measurement = dplyr::if_else(measurement == "Value", "BPM", measurement))
   return(df_erg)
 }
 
