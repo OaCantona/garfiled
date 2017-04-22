@@ -42,7 +42,7 @@ read_tcx <- function(path) {
   xml_run <- xml2::read_xml(x = path, encoding = "ISO-8859-1") %>%
     xml2::xml_ns_strip()
 
-  type <- xml2::xml_find_first(xml_run, ".//Activity") %>%
+  type_act <- xml2::xml_find_first(xml_run, ".//Activity") %>%
     xml2::xml_attr(attr = "Sport")
 
   track_points <- xml2::xml_find_all(x = xml_run, xpath = ".//Trackpoint")
@@ -64,7 +64,7 @@ read_tcx <- function(path) {
     dplyr::select(-nodes) %>%
     tidyr::unnest(measurement, value) %>%
     dplyr::filter(measurement != "Time") %>%
-    dplyr::mutate(type = type)
+    dplyr::mutate(type = type_act)
 
   #Further preprocessing
   df_erg <- df_erg %>%
