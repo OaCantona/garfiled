@@ -45,8 +45,7 @@ read_tcx <- function(path) {
   type <- xml2::xml_find_first(xml_run, ".//Activity") %>%
     xml2::xml_attr(attr = "Sport")
 
-  track_points <- xml2::xml_find_all(x = xml_run, xpath = ".//Trackpoint",
-    ns = xml2::xml_ns(xml_run))
+  track_points <- xml2::xml_find_all(x = xml_run, xpath = ".//Trackpoint")
 
   df_nodes <- tibble::data_frame(nodes =
       track_points %>%
