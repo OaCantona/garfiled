@@ -39,11 +39,13 @@ read_tcx_directory <- function(home_path) {
 #' @examples
 read_tcx <- function(path) {
   #Read xml and get all nodes of the activity
-  xml_run <- xml2::read_xml(x = path, encoding = "ISO-8859-1")
-  type <- xml2::xml_attr(xml2::xml_find_all(x = xml_run, xpath = ".//d1:Activity",
+  xml_run <- xml2::read_xml(x = path, encoding = "ISO-8859-1") %>%
+    xml2::xml_ns_strip()
+
+  type <- xml2::xml_attr(xml2::xml_find_all(x = xml_run, xpath = ".//Activity",
     ns = xml2::xml_ns(xml_run)),attr = "Sport")
 
-  track_points <- xml2::xml_find_all(x = xml_run, xpath = ".//d1:Trackpoint",
+  track_points <- xml2::xml_find_all(x = xml_run, xpath = ".//Trackpoint",
     ns = xml2::xml_ns(xml_run))
 
   df_nodes <- tibble::data_frame(nodes =
