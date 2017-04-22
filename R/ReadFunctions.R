@@ -42,8 +42,8 @@ read_tcx <- function(path) {
   xml_run <- xml2::read_xml(x = path, encoding = "ISO-8859-1") %>%
     xml2::xml_ns_strip()
 
-  type <- xml2::xml_attr(xml2::xml_find_all(x = xml_run, xpath = ".//Activity",
-    ns = xml2::xml_ns(xml_run)),attr = "Sport")
+  type <- xml2::xml_find_first(xml_run, ".//Activity") %>%
+    xml2::xml_attr(attr = "Sport")
 
   track_points <- xml2::xml_find_all(x = xml_run, xpath = ".//Trackpoint",
     ns = xml2::xml_ns(xml_run))
