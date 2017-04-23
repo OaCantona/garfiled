@@ -58,7 +58,8 @@ read_tcx <- function(path) {
 
   #Turn nodes into tidy data frame
   df_erg <- df_nodes %>%
-    dplyr::mutate(measurement = purrr::map(nodes, xml2::xml_name),
+    dplyr::mutate(
+      measurement = purrr::map(nodes, xml2::xml_name),
       value = purrr::map(nodes, xml2::xml_text),
       time = purrr::map2_chr(measurement, value, function(x, y) y[x == "Time"])) %>%
     dplyr::select(-nodes) %>%
